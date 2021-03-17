@@ -8,11 +8,11 @@ import NoMatch from "../pages/NoMatch";
 function App() {
   return (
     <Router>
-      <nav>
+      {/* <nav>
         <Link to="/">pantry logo</Link>
-      </nav>
+      </nav> */}
       <Switch>
-        <Route exact path="/" component={Home} />
+        {/* <Route exact path="/" component={Home} /> */}
         <Route path="/pantry" component={Pantry} />
         <Route component={NoMatch} />
       </Switch>
