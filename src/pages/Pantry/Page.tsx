@@ -1,23 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import useToggle from "./hooks/toggleState";
+import useStock from "./hooks/useStock";
 import { StockList } from "./components/StockList";
 import { StockForm } from "./components/StockForm";
-import { Paper, AppBar, Toolbar, Typography } from "@material-ui/core";
+import { Grid, Paper, AppBar, Toolbar, Typography } from "@material-ui/core";
 
-const myPantry = [
+import useLocalStorage from "./hooks/useLocalStorage";
+
+const items = [
   {
-    id: 1,
+    id: "1",
     name: "pasta",
     expiryDate: "2021-10-10",
     consumed: false,
   },
   {
-    id: 2,
+    id: "2",
     name: "rice",
     expiryDate: "2021-12-03",
-    consumed: false,
+    consumed: true,
   },
   {
-    id: 3,
+    id: "3",
     name: "potatoes",
     expiryDate: "2021-04-15",
     consumed: false,
@@ -25,27 +29,31 @@ const myPantry = [
 ];
 
 interface StockItem {
-  id: number;
+  id: string;
   name: string;
   expiryDate: string;
   consumed: boolean;
 }
 
 export default function Page() {
-  const [stock, setStock] = useState(myPantry);
+  const myPantry = JSON.parse(window.localStorage.getItem("stock") || "[]");
 
-  const addStockItem = (item: StockItem): void => {
-    setStock((prev) => [
-      ...prev,
-      {
-        id: 3,
-        name: "potatoes",
-        expiryDate: "2021-04-15",
-        consumed: false,
-      },
-    ]);
-  };
+  const {
+    stock,
+    addStockItem,
+    deleteStockItem,
+    completedStockItem,
+    editStockItem,
+  } = useStock(myPantry);
 
+  useEffect(() => {
+    window.localStorage.setItem("stock", JSON.stringify(stock));
+  }, [stock]);
+
+  // testing the custom localStorage hook
+  const [mood, setMood] = useLocalStorage("mood", "happy");
+
+  // why is paper not full width?
   return (
     <Paper
       style={{
@@ -61,8 +69,17 @@ export default function Page() {
           <Typography color="inherit">CURRENT STOCKLIST</Typography>
         </Toolbar>
       </AppBar>
-      <StockForm addStockItem={addStockItem} />
-      <StockList stock={stock} />
+      <Grid container justify="center" style={{ marginTop: "1rem" }}>
+        <Grid item xs={11} md={8} lg={4}>
+          <StockForm addStockItem={addStockItem} />
+          <StockList
+            stock={stock}
+            deleteStockItem={deleteStockItem}
+            completedStockItem={completedStockItem}
+            editStockItem={editStockItem}
+          />
+        </Grid>
+      </Grid>
     </Paper>
   );
 }

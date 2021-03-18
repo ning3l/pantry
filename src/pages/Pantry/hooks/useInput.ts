@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 
-interface StateVals {
-  val: string;
-  handleChange: () => void;
-  reset: () => void;
-}
+type ReturnVals = [
+  string,
+  (e: React.ChangeEvent<HTMLInputElement>) => void,
+  () => void
+];
 
-export default (initialVal: string) => {
+const useInput = (initialVal: string): ReturnVals => {
   const [val, setVal] = useState(initialVal);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
     setVal(e.target.value);
   };
 
@@ -19,3 +20,5 @@ export default (initialVal: string) => {
 
   return [val, handleChange, reset];
 };
+
+export default useInput;
