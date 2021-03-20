@@ -1,5 +1,4 @@
 import { useState, Dispatch } from "react";
-import useLocalStorage from "./useLocalStorage";
 
 interface StockItem {
   id: string;
@@ -18,8 +17,9 @@ interface ReturnVals {
 
 export default (initialStock: StockItem[]): ReturnVals => {
   const [stock, setStock] = useState<StockItem[]>(initialStock);
-  // use this code instead when you figured out the correct annotations
-  // const [stock, setStock] = useLocalStorage("stock", initialStock);
+  // TO DO:
+  // use this code instead when you figured out the correct annotations & wrote custom hook:
+  // const [stock, setStock] = useDB("stock", initialStock);
 
   return {
     stock,

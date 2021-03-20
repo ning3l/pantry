@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import useToggle from "../hooks/toggleState";
 import EditStockItem from "./EditStockItem";
 import {
   Checkbox,
@@ -12,9 +11,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
 // TO DO HERE
-// write a function + delete all btn which deletes all consumed stock items
+// write a function + delete a btn which deletes all consumed stock items
 // have the expired items automatically toggle their status, so you can review before they get deleted
-// fix edit so you can only ever 1 item
 
 interface StockListItem {
   id: string;
@@ -36,7 +34,6 @@ const StockItem: React.FC<Props> = ({
   completedStockItem,
   editStockItem,
 }) => {
-  // externalise this logic in custom hook
   const [isEdit, setIsEdit] = useState(false);
 
   const handleEdit = (): void => {

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Paper, TextField } from "@material-ui/core";
 import { v4 as uuid } from "uuid";
+import { PantryContext } from "../../../contexts/PantryContext";
 
-// MAKE 1 interface in page in default export it here
+// MAKE 1 interface in page in default export it here ?
 interface StockItem {
   id: string;
   name: string;
@@ -14,17 +15,23 @@ interface Props {
   addStockItem: (item: StockItem) => void;
 }
 
-export const StockForm: React.FC<Props> = ({ addStockItem }) => {
+export const StockForm: React.FC = () => {
   const [val, setVal] = useState("");
+  const { addStockItem } = useContext(PantryContext);
 
-  // CHANGE THIS to make use of the custom hook instead
+  // TO DO:
+  // CHANGE THIS to make use of the custom form hook instead
+  // name of item
+  // expiry date
+  // ~ amount left
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setVal(e.target.value);
   };
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // move this logic into Pages > addStockItem
+    // TO DO
+    // move this logic into Pages > addStockItem after you updated form to collect all data
     let newItem = {
       id: uuid(),
       name: val,

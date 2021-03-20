@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import StockItem from "./StockItem";
 import { Paper, List, Divider } from "@material-ui/core";
+import PantryContext from "../../../contexts/PantryContext";
 
 interface StockItem {
   id: string;
@@ -16,17 +17,18 @@ interface Props {
   editStockItem: (id: string, newName: string) => void;
 }
 
-export const StockList: React.FC<Props> = ({
-  stock,
-  deleteStockItem,
-  completedStockItem,
-  editStockItem,
-}) => {
+export const StockList: React.FC = () => {
+  const {
+    stock,
+    deleteStockItem,
+    completedStockItem,
+    editStockItem,
+  } = useContext(PantryContext);
   if (stock.length)
     return (
       <Paper>
         <List>
-          {stock.map((item, idx) => (
+          {stock.map((item: StockItem, idx: number) => (
             <>
               <StockItem
                 item={item}

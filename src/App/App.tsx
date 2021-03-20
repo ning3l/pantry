@@ -5,6 +5,8 @@ import Home from "../pages/Home";
 import Pantry from "../pages/Pantry";
 import NoMatch from "../pages/NoMatch";
 
+import "./styles";
+
 function App() {
   return (
     <Router>

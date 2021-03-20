@@ -1,8 +1,6 @@
 import React from "react";
-import useInput from "../hooks/useInput";
-import { Paper, TextField, IconButton } from "@material-ui/core";
-import InputAdornment from "@material-ui/core/InputAdornment";
-
+import useInput from "../../../hooks/useInput";
+import { TextField, IconButton } from "@material-ui/core";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 
 interface Props {
@@ -18,6 +16,7 @@ const EditStockItem: React.FC<Props> = ({
   editStockItem,
   handleEdit,
 }) => {
+  // UPDATE A STOCK ITEM FROM YOUR LIST
   const [val, handleChange, reset] = useInput(currVal);
 
   const handleAbort = () => {
