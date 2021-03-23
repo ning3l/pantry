@@ -6,15 +6,18 @@ import Pantry from "../pages/Pantry";
 import NoMatch from "../pages/NoMatch";
 
 import "./styles";
+import { Grid, Paper, AppBar, Toolbar, Typography } from "@material-ui/core";
 
 function App() {
   return (
     <Router>
-      {/* <nav>
-        <Link to="/">pantry logo</Link>
-      </nav> */}
+      <AppBar color="primary" position="static" style={{ height: "64px" }}>
+        <Toolbar>
+          <Typography color="inherit">CURRENT STOCKLIST</Typography>
+        </Toolbar>
+      </AppBar>
       <Switch>
-        {/* <Route exact path="/" component={Home} /> */}
+        <Route exact path="/" component={Home} />
         <Route path="/pantry" component={Pantry} />
         <Route component={NoMatch} />
       </Switch>

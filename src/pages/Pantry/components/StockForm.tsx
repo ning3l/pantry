@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Paper, TextField } from "@material-ui/core";
 import { v4 as uuid } from "uuid";
-import { PantryContext } from "../../../contexts/PantryContext";
+import { DispatchContext } from "../../../contexts/PantryContext";
 
 // MAKE 1 interface in page in default export it here ?
 interface StockItem {
@@ -11,13 +11,13 @@ interface StockItem {
   consumed: boolean;
 }
 
-interface Props {
-  addStockItem: (item: StockItem) => void;
-}
+// interface Props {
+//   addStockItem: (item: StockItem) => void;
+// }
 
 export const StockForm: React.FC = () => {
   const [val, setVal] = useState("");
-  const { addStockItem } = useContext(PantryContext);
+  const dispatch = useContext(DispatchContext);
 
   // TO DO:
   // CHANGE THIS to make use of the custom form hook instead
@@ -38,7 +38,8 @@ export const StockForm: React.FC = () => {
       expiryDate: "2021-10-10",
       consumed: false,
     };
-    addStockItem(newItem);
+    dispatch({ type: "ADD", item: newItem });
+    // addStockItem(newItem);
     setVal("");
   };
 

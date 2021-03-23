@@ -3,8 +3,10 @@
 # dependencies
 /node_modules
 /express/node_modules
+express/.env
 /.pnp
 .pnp.js
+.env
 
 # testing
 /coverage

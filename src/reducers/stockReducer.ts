@@ -1,5 +1,3 @@
-import React, { useReducer } from "react";
-
 interface StockItem {
   id: string;
   name: string;
@@ -9,6 +7,7 @@ interface StockItem {
 
 type StockState = StockItem[];
 
+// ACTIONS & ACTION TYPES
 enum ActionType {
   ADD = "ADD",
   DELETE = "DELETE",
@@ -53,8 +52,9 @@ const reducer = (state: StockState, action: Action) => {
       return state.map((el) =>
         el.id === action.id ? { ...el, name: action.newName } : el
       );
+    default:
+      return state;
   }
 };
 
-// { type: ADD, item: { name: "sesame", id: 123}}
-// { type: DELETE, id: 123}
+export default reducer;

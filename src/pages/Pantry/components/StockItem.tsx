@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import EditStockItem from "./EditStockItem";
+import { DispatchContext } from "../../../contexts/PantryContext";
 import {
   Checkbox,
   ListItem,
@@ -23,16 +24,16 @@ interface StockListItem {
 
 interface Props {
   item: StockListItem;
-  deleteStockItem: (id: string) => void;
-  completedStockItem: (id: string) => void;
-  editStockItem: (id: string, newName: string) => void;
+  // deleteStockItem: (id: string) => void;
+  // completedStockItem: (id: string) => void;
+  // editStockItem: (id: string, newName: string) => void;
 }
 
 const StockItem: React.FC<Props> = ({
   item,
-  deleteStockItem,
-  completedStockItem,
-  editStockItem,
+  // deleteStockItem,
+  // completedStockItem,
+  // editStockItem,
 }) => {
   const [isEdit, setIsEdit] = useState(false);
 
@@ -40,13 +41,16 @@ const StockItem: React.FC<Props> = ({
     setIsEdit(!isEdit);
   };
 
+  // GET STATE FROM CONTEXT
+  const dispatch = useContext(DispatchContext);
+
   return (
     <ListItem style={{ height: "64px" }}>
       {isEdit ? (
         <EditStockItem
           id={item.id}
           currVal={item.name}
-          editStockItem={editStockItem}
+          // editStockItem={editStockItem}
           handleEdit={handleEdit}
         />
       ) : (
@@ -54,7 +58,7 @@ const StockItem: React.FC<Props> = ({
           <Checkbox
             tabIndex={-1}
             checked={item.consumed}
-            onClick={() => completedStockItem(item.id)}
+            onClick={() => dispatch({ type: "COMPLETE", id: item.id })}
           />
           <ListItemText
             style={{ textDecoration: item.consumed ? "line-through" : "none" }}
@@ -67,7 +71,7 @@ const StockItem: React.FC<Props> = ({
             </IconButton>
             <IconButton
               aria-label="delete"
-              onClick={() => deleteStockItem(item.id)}
+              onClick={() => dispatch({ type: "DELETE", id: item.id })}
             >
               <DeleteIcon />
             </IconButton>
