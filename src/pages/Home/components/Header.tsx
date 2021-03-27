@@ -28,7 +28,7 @@ const Header: React.FC = () => {
           color="textPrimary"
           gutterBottom
         >
-          Album layout
+          Pantry
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" paragraph>
           Something short and leading about the collection below—its contents,

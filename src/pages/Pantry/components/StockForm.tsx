@@ -57,3 +57,21 @@ export const StockForm: React.FC = () => {
     </Paper>
   );
 };
+
+/*
+
+FORM VALIDATIONS
+Npm install react-material-ui-form-validator
+Import { validatorForm, TextValidator } from “ react-material-ui-form-validator”
+
+<ValidatorForm>
+	<TextValidator value={{name}} onChange={…}
+	validators={[“required“, “isEmail”]}
+	errorMessages={[“field is required”, “email invalid”]}
+>
+</ValidatorForm>
+
+Or define your own validators in useEffect!
+
+
+*/
