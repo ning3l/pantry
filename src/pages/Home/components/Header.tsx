@@ -31,9 +31,8 @@ const Header: React.FC = () => {
           Pantry
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" paragraph>
-          Something short and leading about the collection below—its contents,
-          the creator, etc. Make it short and sweet, but not too short so folks
-          don&apos;t simply skip over it entirely.
+          sth like an introductory greeting? or "have you tried ... already and
+          link to last saved recipe"
         </Typography>
         <div className={classes.heroButtons}>
           <Grid container spacing={2} justify="center">
