@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import RecipeSearchDialog from "./components/RecipeSearchDialog";
 import ExpiringItemsList from "./components/ExpiringItemsList";
 import RecipeSuggestions from "./components/RecipeSuggestions";
-import { Grid, Paper, AppBar, Toolbar, Typography } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -20,38 +20,47 @@ const useStyles = makeStyles((theme) => ({
 // if there are notifications, give each item an onClick event to trigger the recipe search
 // show 1 recipe, onClick recipe details open up in a popup (button to save to your recipe repo)
 
-const storage = ["sesame", "red lentils", "matcha pulver"];
-
 function Page() {
   const classes = useStyles();
 
   // SEARCH RECIPES DIALOG
   const [open, setOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState("");
 
-  const handleClickOpen = () => {
-    console.log("open dialog");
+  const handleClickOpen = (item: string) => {
+    console.log("open", item);
     setOpen(true);
+    setSelectedItem(item);
   };
 
   const handleClose = () => {
     setOpen(false);
+    setSelectedItem("");
   };
 
   // put this in its own context !!!
   // SEARCH RECIPES FUNCTIONALITY
   const [recipes, setRecipes] = useState([]);
 
-  const handleSearch = (itemList: string[]) => {
+  const getData = (requestStr: string) => {
+    fetch(`${requestStr}&apiKey=${process.env.REACT_APP_API}`)
+      .then((res) => res.json())
+      .then((data) => setRecipes(data));
+  };
+
+  const handleSearch = () => {
+    // how can you pass an arg instead of using a global var here?
+    let requestStr = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${selectedItem}`;
+    getData(requestStr);
+  };
+
+  const handleAdvancedSearch = (itemList: string[]) => {
     // build request str
-    let requestString =
+    let requestStr =
       "https://api.spoonacular.com/recipes/findByIngredients?ingredients=";
     let ingredientString = itemList.map((item) => item + "%2C");
-    requestString = requestString + ingredientString;
-
-    // fetch recipes
-    fetch(`${requestString}&apiKey=${process.env.REACT_APP_API}`)
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    requestStr = requestStr + ingredientString;
+    getData(requestStr);
   };
 
   // const API_KEY = process.env.REACT_APP_API;
@@ -83,10 +92,11 @@ function Page() {
             handleClose={handleClose}
             handleClickOpen={handleClickOpen}
             handleSearch={handleSearch}
+            handleAdvancedSearch={handleAdvancedSearch}
           />
         </Grid>
       </Grid>
-      <RecipeSuggestions />
+      <RecipeSuggestions recipes={recipes} />
     </div>
   );
 }

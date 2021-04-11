@@ -6,14 +6,14 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { Paper, List, Divider } from "@material-ui/core";
 
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 
 interface Props {
   open: boolean;
   handleClose: () => void;
-  handleSearch: (itemList: string[]) => void;
+  handleSearch: () => void;
+  handleAdvancedSearch: (itemList: string[]) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -38,6 +38,7 @@ const RecipeSearchDialog: React.FC<Props> = ({
   open,
   handleClose,
   handleSearch,
+  handleAdvancedSearch,
 }) => {
   const classes = useStyles();
 
@@ -58,7 +59,7 @@ const RecipeSearchDialog: React.FC<Props> = ({
             You can just fetch matching recipes for the item that is about to
             expire with our simple search:
           </DialogContentText>
-          <Button style={{ width: "100%" }} onSubmit={() => handleSearch(val)}>
+          <Button style={{ width: "100%" }} onClick={() => handleSearch()}>
             simple search
           </Button>
         </DialogContent>

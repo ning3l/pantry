@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import RecipeSearchDialog from "./RecipeSearchDialog";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
@@ -9,11 +9,14 @@ import Avatar from "@material-ui/core/Avatar";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import Paper from "@material-ui/core/Paper";
 
+const storage = ["sesame", "red lentils", "matcha pulver"];
+
 interface Props {
   open: boolean;
-  handleClickOpen: () => void;
+  handleClickOpen: (item: string) => void;
   handleClose: () => void;
-  handleSearch: (itemList: string[]) => void;
+  handleSearch: () => void;
+  handleAdvancedSearch: (itemList: string[]) => void;
 }
 
 const ExpiringItemsList: React.FC<Props> = ({
@@ -21,44 +24,32 @@ const ExpiringItemsList: React.FC<Props> = ({
   handleClickOpen,
   handleClose,
   handleSearch,
+  handleAdvancedSearch,
 }) => {
   return (
     <>
       <Paper>
         <List>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ArrowForwardIosIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-            <Button onClick={handleClickOpen}>get recipe</Button>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ArrowForwardIosIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Work" secondary="Jan 7, 2014" />
-            <Button onClick={handleClickOpen}>get recipe</Button>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ArrowForwardIosIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Vacation" secondary="July 20, 2014" />
-            <Button onClick={handleClickOpen}>get recipe</Button>
-          </ListItem>
+          {storage.map((el) => {
+            return (
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <ArrowForwardIosIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={el} secondary="Jan 9, 2014" />
+                <Button onClick={() => handleClickOpen(el)}>get recipe</Button>
+              </ListItem>
+            );
+          })}
         </List>
       </Paper>
       <RecipeSearchDialog
         open={open}
         handleClose={handleClose}
         handleSearch={handleSearch}
+        handleAdvancedSearch={handleAdvancedSearch}
       />
     </>
   );
