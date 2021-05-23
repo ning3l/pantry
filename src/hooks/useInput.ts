@@ -10,7 +10,6 @@ const useInput = (initialVal: string): ReturnVals => {
   const [val, setVal] = useState(initialVal);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     setVal(e.target.value);
   };
 

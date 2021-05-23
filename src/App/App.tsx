@@ -6,8 +6,17 @@ import Pantry from "../pages/Pantry";
 import NoMatch from "../pages/NoMatch";
 import Drawer from "../pages/Nav";
 
+import NavBar from "./components/NavBar";
+
 import "./styles";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+
+// TO DO
+// customise the MUI theme
+
+// CONTEXTS
+import { ThemeProvider } from "../contexts/ThemeContext";
+import { LanguageProvider } from "../contexts/LanguageContext";
+import { StockProvider } from "../contexts/StockContext";
 
 function App() {
   // HANDLE SIDEBAR NAV
@@ -29,19 +38,19 @@ function App() {
 
   return (
     <Router>
-      <AppBar color="primary" position="static" style={{ height: "64px" }}>
-        <Toolbar>
-          <Typography color="inherit" onClick={toggleDrawer(true)}>
-            PANTRY Logo
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer state={state} toggleDrawer={toggleDrawer} />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/pantry" component={Pantry} />
-        <Route component={NoMatch} />
-      </Switch>
+      <ThemeProvider>
+        <LanguageProvider>
+          <NavBar toggleDrawer={toggleDrawer} />
+          <Drawer state={state} toggleDrawer={toggleDrawer} />
+          <Switch>
+            <StockProvider>
+              <Route exact path="/" component={Home} />
+              <Route path="/pantry" component={Pantry} />
+              <Route component={NoMatch} />
+            </StockProvider>
+          </Switch>
+        </LanguageProvider>
+      </ThemeProvider>
     </Router>
   );
 }

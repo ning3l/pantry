@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import useInput from "../../../hooks/useInput";
-import { DispatchContext } from "../../../contexts/PantryContext";
 import { TextField, IconButton } from "@material-ui/core";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+
+import { StockContext } from "../../../contexts/StockContext";
 
 interface Props {
   id: string;
@@ -11,27 +12,21 @@ interface Props {
   handleEdit: () => void;
 }
 
-const EditStockItem: React.FC<Props> = ({
-  id,
-  currVal,
-  // editStockItem,
-  handleEdit,
-}) => {
-  // UPDATE A STOCK ITEM FROM YOUR LIST
+const EditStockItem: React.FC<Props> = ({ id, currVal, handleEdit }) => {
+  // initialize editing
   const [val, handleChange, reset] = useInput(currVal);
 
   const handleAbort = () => {
     handleEdit();
   };
 
-  const dispatch = useContext(DispatchContext);
+  const { dispatch } = useContext(StockContext);
 
   return (
     <form
       action=""
       onSubmit={(e) => {
         e.preventDefault();
-        // editStockItem(id, val);
         dispatch({ type: "EDIT", id: id, newName: val });
         reset();
         handleEdit();

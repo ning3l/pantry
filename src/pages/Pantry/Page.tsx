@@ -1,23 +1,15 @@
-import React, { useState, useEffect } from "react";
-import PantryProvider from "../../contexts/PantryContext";
+import { useContext } from "react";
 import { StockList } from "./components/StockList";
 import { StockForm } from "./components/StockForm";
-import { Grid, Paper, AppBar, Toolbar, Typography } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
+
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 export default function Page() {
+  // ADD TO NOTES AND DELETE
   // const myPantry = JSON.parse(window.localStorage.getItem("stock") || "[]");
 
-  // const {
-  //   stock,
-  //   addStockItem,
-  //   deleteStockItem,
-  //   completedStockItem,
-  //   editStockItem,
-  // } = useStock(myPantry);
-
-  // useEffect(() => {
-  //   window.localStorage.setItem("stock", JSON.stringify(stock));
-  // }, [stock]);
+  const { isDarkMode } = useContext(ThemeContext);
 
   return (
     <Paper
@@ -25,28 +17,14 @@ export default function Page() {
         padding: 0,
         margin: 0,
         height: "100vh",
-        backgroundColor: "#fafafa",
+        backgroundColor: isDarkMode ? "#3f3333" : "#fafafa",
       }}
       elevation={0}
     >
-      {/* <AppBar color="primary" position="static" style={{ height: "64px" }}>
-        <Toolbar>
-          <Typography color="inherit">CURRENT STOCKLIST</Typography>
-        </Toolbar>
-      </AppBar> */}
       <Grid container justify="center" style={{ marginTop: "1rem" }}>
         <Grid item xs={11} md={8} lg={4}>
-          <PantryProvider>
-            {/* <StockForm addStockItem={addStockItem} />
-            <StockList
-              stock={stock}
-              deleteStockItem={deleteStockItem}
-              completedStockItem={completedStockItem}
-              editStockItem={editStockItem}
-            /> */}
-            <StockForm />
-            <StockList />
-          </PantryProvider>
+          <StockForm />
+          <StockList />
         </Grid>
       </Grid>
     </Paper>

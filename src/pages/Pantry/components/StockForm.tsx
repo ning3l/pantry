@@ -1,32 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
+
+import useInput from "../../../hooks/useInput";
 import { Paper, TextField } from "@material-ui/core";
 import { v4 as uuid } from "uuid";
-import { DispatchContext } from "../../../contexts/PantryContext";
 
-// MAKE 1 interface in page in default export it here ?
-interface StockItem {
-  id: string;
-  name: string;
-  expiryDate: string;
-  consumed: boolean;
-}
-
-// interface Props {
-//   addStockItem: (item: StockItem) => void;
-// }
+import { StockContext } from "../../../contexts/StockContext";
 
 export const StockForm: React.FC = () => {
-  const [val, setVal] = useState("");
-  const dispatch = useContext(DispatchContext);
+  const [value, handleChange, reset] = useInput("");
 
-  // TO DO:
-  // CHANGE THIS to make use of the custom form hook instead
-  // name of item
-  // expiry date
-  // ~ amount left
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVal(e.target.value);
-  };
+  const { dispatch } = useContext(StockContext);
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,20 +17,19 @@ export const StockForm: React.FC = () => {
     // move this logic into Pages > addStockItem after you updated form to collect all data
     let newItem = {
       id: uuid(),
-      name: val,
+      name: value,
       expiryDate: "2021-10-10",
       consumed: false,
     };
     dispatch({ type: "ADD", item: newItem });
-    // addStockItem(newItem);
-    setVal("");
+    reset();
   };
 
   return (
     <Paper style={{ margin: "1rem 0", padding: "0 1rem" }}>
       <form onSubmit={handleSubmit}>
         <TextField
-          value={val}
+          value={value}
           onChange={handleChange}
           margin="normal"
           label="add new item"
@@ -57,21 +39,3 @@ export const StockForm: React.FC = () => {
     </Paper>
   );
 };
-
-/*
-
-FORM VALIDATIONS
-Npm install react-material-ui-form-validator
-Import { validatorForm, TextValidator } from “ react-material-ui-form-validator”
-
-<ValidatorForm>
-	<TextValidator value={{name}} onChange={…}
-	validators={[“required“, “isEmail”]}
-	errorMessages={[“field is required”, “email invalid”]}
->
-</ValidatorForm>
-
-Or define your own validators in useEffect!
-
-
-*/

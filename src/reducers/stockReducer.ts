@@ -38,7 +38,7 @@ interface EditAction {
 
 type Action = AddAction | DeleteAction | CompleteAction | EditAction;
 
-const reducer = (state: StockState, action: Action) => {
+export const reducer = (state: StockState, action: Action) => {
   switch (action.type) {
     case "ADD":
       return [...state, action.item];
@@ -56,5 +56,3 @@ const reducer = (state: StockState, action: Action) => {
       return state;
   }
 };
-
-export default reducer;

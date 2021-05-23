@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import EditStockItem from "./EditStockItem";
-import { DispatchContext } from "../../../contexts/PantryContext";
 import {
   Checkbox,
   ListItem,
@@ -11,9 +10,7 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
-// TO DO HERE
-// write a function + delete a btn which deletes all consumed stock items
-// have the expired items automatically toggle their status, so you can review before they get deleted
+import { StockContext } from "../../../contexts/StockContext";
 
 interface StockListItem {
   id: string;
@@ -24,25 +21,20 @@ interface StockListItem {
 
 interface Props {
   item: StockListItem;
-  // deleteStockItem: (id: string) => void;
-  // completedStockItem: (id: string) => void;
-  // editStockItem: (id: string, newName: string) => void;
 }
 
-const StockItem: React.FC<Props> = ({
-  item,
-  // deleteStockItem,
-  // completedStockItem,
-  // editStockItem,
-}) => {
+// TO DO HERE
+// write a function + delete a btn which deletes all consumed stock items
+// have the expired items automatically toggle their status, so you can review before they get deleted
+
+const StockItem: React.FC<Props> = ({ item }) => {
   const [isEdit, setIsEdit] = useState(false);
 
-  const handleEdit = (): void => {
-    setIsEdit(!isEdit);
+  const handleEdit = () => {
+    setIsEdit((prev) => !prev);
   };
 
-  // GET STATE FROM CONTEXT
-  const dispatch = useContext(DispatchContext);
+  const { dispatch } = useContext(StockContext);
 
   return (
     <ListItem style={{ height: "64px" }}>
@@ -50,7 +42,6 @@ const StockItem: React.FC<Props> = ({
         <EditStockItem
           id={item.id}
           currVal={item.name}
-          // editStockItem={editStockItem}
           handleEdit={handleEdit}
         />
       ) : (
@@ -66,7 +57,7 @@ const StockItem: React.FC<Props> = ({
             {item.name}
           </ListItemText>
           <ListItemSecondaryAction>
-            <IconButton aria-label="edit" onClick={() => handleEdit()}>
+            <IconButton aria-label="edit" onClick={handleEdit}>
               <EditIcon />
             </IconButton>
             <IconButton
