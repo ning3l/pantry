@@ -3,7 +3,7 @@ import useInput from "../../../hooks/useInput";
 import { TextField, IconButton } from "@material-ui/core";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 
-import { StockContext } from "../../../contexts/StockContext";
+import { DispatchContext } from "../../../contexts/StockContext";
 
 interface Props {
   id: string;
@@ -20,7 +20,8 @@ const EditStockItem: React.FC<Props> = ({ id, currVal, handleEdit }) => {
     handleEdit();
   };
 
-  const { dispatch } = useContext(StockContext);
+  const dispatch = useContext(DispatchContext);
+  console.log("RERENDER IN EDIT STOCK ITEM");
 
   return (
     <form

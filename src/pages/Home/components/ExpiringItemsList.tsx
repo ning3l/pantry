@@ -32,7 +32,7 @@ const ExpiringItemsList: React.FC<Props> = ({
         <List>
           {storage.map((el) => {
             return (
-              <ListItem>
+              <ListItem key={el}>
                 <ListItemAvatar>
                   <Avatar>
                     <ArrowForwardIosIcon />

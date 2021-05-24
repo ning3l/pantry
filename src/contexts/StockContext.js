@@ -1,10 +1,11 @@
 // context to keep track of the stock items
-import { createContext, useReducer } from "react";
+import { createContext, Dispatch, useReducer } from "react";
 import { reducer } from "../reducers/stockReducer";
 
-export const StockContext = createContext();
+// interface Props {
+//   children: React.ReactNode;
+// }
 
-// FOR TS REFACTOR
 // interface StockItem {
 //   id: string;
 //   name: string;
@@ -12,13 +13,9 @@ export const StockContext = createContext();
 //   consumed: boolean;
 // }
 
-// interface ContextProps {
-//   state: StockItem[];
-//   dispatch: ({ type }: { type: string }) => void;
-// }
-
-// export const StockContext = createContext<ReturnVals | null>(null);
-// export const DispatchContext = createContext(undefined as any);
+export const StockContext = createContext();
+export const DispatchContext = createContext();
+// export const StockContext = createContext<ContextProps>({} as ContextProps);
 
 const defaultItems = [
   {
@@ -31,7 +28,7 @@ const defaultItems = [
     id: "2",
     name: "rice",
     expiryDate: "2021-12-03",
-    consumed: true,
+    consumed: false,
   },
   {
     id: "3",
@@ -41,12 +38,14 @@ const defaultItems = [
   },
 ];
 
-export function StockProvider({ children }) {
+export const StockProvider = ({ children }) => {
   const [stock, dispatch] = useReducer(reducer, defaultItems);
 
   return (
-    <StockContext.Provider value={{ stock, dispatch }}>
-      {children}
+    <StockContext.Provider value={stock}>
+      <DispatchContext.Provider value={dispatch}>
+        {children}
+      </DispatchContext.Provider>
     </StockContext.Provider>
   );
-}
+};

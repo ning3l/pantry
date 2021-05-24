@@ -8,10 +8,11 @@ import Drawer from "../pages/Nav";
 
 import NavBar from "./components/NavBar";
 
-import "./styles";
+import "./styles"; // you don't need this!
 
 // TO DO
 // customise the MUI theme
+// use styled-components
 
 // CONTEXTS
 import { ThemeProvider } from "../contexts/ThemeContext";
@@ -22,19 +23,18 @@ function App() {
   // HANDLE SIDEBAR NAV
   const [state, setState] = useState(false);
 
-  const toggleDrawer = (open: boolean) => (
-    event: React.KeyboardEvent | React.MouseEvent
-  ) => {
-    if (
-      event.type === "keydown" &&
-      ((event as React.KeyboardEvent).key === "Tab" ||
-        (event as React.KeyboardEvent).key === "Shift")
-    ) {
-      return;
-    }
+  const toggleDrawer =
+    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
 
-    setState(open);
-  };
+      setState(open);
+    };
 
   return (
     <Router>

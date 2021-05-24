@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, memo } from "react";
 import EditStockItem from "./EditStockItem";
 import {
   Checkbox,
@@ -10,7 +10,7 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
-import { StockContext } from "../../../contexts/StockContext";
+import { DispatchContext } from "../../../contexts/StockContext";
 
 interface StockListItem {
   id: string;
@@ -34,7 +34,7 @@ const StockItem: React.FC<Props> = ({ item }) => {
     setIsEdit((prev) => !prev);
   };
 
-  const { dispatch } = useContext(StockContext);
+  const dispatch = useContext(DispatchContext);
 
   return (
     <ListItem style={{ height: "64px" }}>
@@ -49,7 +49,10 @@ const StockItem: React.FC<Props> = ({ item }) => {
           <Checkbox
             tabIndex={-1}
             checked={item.consumed}
-            onClick={() => dispatch({ type: "COMPLETE", id: item.id })}
+            onClick={() => {
+              dispatch({ type: "COMPLETE", id: item.id });
+              console.log("RERENDER ITEM", item.name);
+            }}
           />
           <ListItemText
             style={{ textDecoration: item.consumed ? "line-through" : "none" }}
@@ -73,4 +76,4 @@ const StockItem: React.FC<Props> = ({ item }) => {
   );
 };
 
-export default StockItem;
+export default memo(StockItem);

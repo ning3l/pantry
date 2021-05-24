@@ -1,16 +1,17 @@
 import { createContext, useState } from "react";
 
-// STAN: Do I have to do this?
-// interface ContextProps {
-//   state: "purple";
-//   dispatch: ({ type }: { type: string }) => void;
-// }
+interface Props {
+  children: React.ReactNode;
+}
 
-// const ThemeContext = createContext({} as ContextProps)
+interface ContextProps {
+  isDarkMode: boolean;
+  toggleTheme: () => void;
+}
 
-export const ThemeContext = createContext();
+export const ThemeContext = createContext({} as ContextProps);
 
-export function ThemeProvider({ children }) {
+export const ThemeProvider: React.FC<Props> = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleTheme = () => {
@@ -22,4 +23,4 @@ export function ThemeProvider({ children }) {
       {children}
     </ThemeContext.Provider>
   );
-}
+};

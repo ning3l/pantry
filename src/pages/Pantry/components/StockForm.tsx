@@ -4,12 +4,13 @@ import useInput from "../../../hooks/useInput";
 import { Paper, TextField } from "@material-ui/core";
 import { v4 as uuid } from "uuid";
 
-import { StockContext } from "../../../contexts/StockContext";
+import { DispatchContext } from "../../../contexts/StockContext";
 
 export const StockForm: React.FC = () => {
   const [value, handleChange, reset] = useInput("");
 
-  const { dispatch } = useContext(StockContext);
+  const dispatch = useContext(DispatchContext);
+  console.log("RERENDER IN STOCK FORM");
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -12,17 +12,18 @@ interface StockItem {
 }
 
 export const StockList: React.FC = () => {
-  const { stock } = useContext(StockContext);
+  const stock = useContext(StockContext);
+  console.log("RERENDER FROM STOCK LIST");
 
   if (stock && stock.length)
     return (
       <Paper>
         <List>
           {stock.map((item: StockItem, idx: number) => (
-            <>
-              <StockItem item={item} key={item.id} />
+            <div key={item.id}>
+              <StockItem item={item} />
               {idx < stock.length - 1 && <Divider />}
-            </>
+            </div>
           ))}
         </List>
       </Paper>
